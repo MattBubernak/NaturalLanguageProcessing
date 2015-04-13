@@ -9,12 +9,12 @@ of	O
 a	O
 sojourn	O
 with	O
-Professor	END
-Dan	START
+Professor	O
+Dan	O
 H	O
 .	O
 
-Peroxydase	O
+Peroxydase	B
 reaction	O
 stains	O
 were	O

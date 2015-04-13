@@ -95,10 +95,28 @@ def readFileToArrays(fileName,words,tags,wordDict,tagDict):
 			tagDict[tag] = 1
 
 
+def getDerivations(word):
+	derivations = []
+	suffixes = ["in","ase","y","able","al","ed","er","est","ful","ic","ive","less","ly","ness","ous","ious","ment"]
+	
+	for suf in suffixes:
+		if (len(word) > 4):
+			if (word[-len(suf):] == suf):
+				derivations.append(suf)
+				#print "appended: " + suf + " because " + word
+	return derivations
+
 # Populates tag objects with the necessary probabilities 
 def createCounts(tagObjects,words,tags):
 	for i in range(0,len(words)-1):
 		tagObjects[tags[i]].addWord(words[i])
+
+		# Temporarily add some other derivational words. 
+		## COMMENT OUT TO REMOVE ANY CHANGSE FROM ORIGINAL STRAT ##
+		derivations = getDerivations(words[i])
+		for derivation in derivations:
+			tagObjects[tags[i]].addWord(derivation)
+		############################################################
 		tagObjects[tags[i]].addTag(tags[i+1])
 
 	for i in range(0,len(tagObjects)):
@@ -146,8 +164,20 @@ def viterbi(observations, tagObjects,tags,predictedStates):
 				prevVit = viterbi[t-1][x]
 				# Probability of this state(tag) given the previous state(tag) 
 				probTagGivenPrev = -math.log(tagObjects[tagObjects.keys()[x]].probTagGivenThis(tagObjects[tagObjects.keys()[s]].tag))
+				
 				# Probability of this observation(word) given the state(tag)
-				probWordGivenTag = -math.log(tagObjects[tagObjects.keys()[s]].probabilityWord(observations[t])) 
+				probWordGivenTag = -math.log(tagObjects[tagObjects.keys()[s]].probabilityWord(observations[t])) #*5
+
+				# Check if any derivations of this word have a better probability
+				####COMMENT OUT TO REMOVE ANY CHANGSE FROM ORIGINAL STRATS ####
+				derivations = getDerivations(observations[t])
+				for derivation in derivations:
+					#if -math.log(tagObjects[tagObjects.keys()[s]].probabilityWord(derivation)) < probWordGivenTag:
+					#	probWordGivenTag = -math.log(tagObjects[tagObjects.keys()[s]].probabilityWord(derivation))
+					probWordGivenTag += -math.log(tagObjects[tagObjects.keys()[s]].probabilityWord(derivation))
+				probWordGivenTag = probWordGivenTag / (len(derivations))
+				########3
+
 
 				# If we have a new max, update the viterbi value
 				if (prevVit + probTagGivenPrev + probWordGivenTag < minVal1):
