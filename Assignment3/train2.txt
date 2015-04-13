@@ -1,0 +1,33 @@
+Urinary	O
+excretion	O
+of	O
+oestrone	O
+,	O
+.	O
+-	O
+17	O
+
+beta	O
+and	O
+.	O
+in	O
+pregnancies	O
+complicated	O
+by	O
+steroid	B
+sulphatase	I
+deficiency	O
+.	O
+
+Both	O
+reduced	O
+.	O
+locomotor	O
+activity	O
+in	O
+mice	O
+,	O
+protected	O
+them	O
+from	O
+death	O

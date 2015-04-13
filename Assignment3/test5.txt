@@ -1,0 +1,31 @@
+Comparison	O
+with	O
+alkaline	B
+phosphatases	I
+and	O
+5	B
+-	I
+nucleotidase	I
+.	O
+
+Pharmacologic	O
+.	O
+
+When	O
+.	O
+23	O
+vs	O
+.	O
+
+Flurazepam	O
+thus	O
+night	O
+.	O
+
+Beta	O
+blocking	O
+agents	O
+.	O
+
+nucleotidase	O
+.	O
