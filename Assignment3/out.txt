@@ -14,6 +14,7 @@ Dan	START
 H	O
 .	O
 
+a	O
 Peroxydase	O
 reaction	O
 stains	O
@@ -25,4 +26,29 @@ esterase	I
 were	O
 strongly	O
 positive	O
+.	O
+
+Studies	O
+on	O
+immunoglobulinin	O
+E	O
+:	O
+the	O
+impact	O
+of	O
+a	O
+sojourn	O
+with	O
+Professor	END
+Dan	START
+H	O
+.	O
+
+Serum	O
+-	I
+ferritin	I
+in	O
+diagnosis	O
+of	O
+haemochromatosis	O
 .	O

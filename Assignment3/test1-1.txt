@@ -14,6 +14,7 @@ Dan	O
 H	O
 .	O
 
+a	O
 Peroxydase	B
 reaction	O
 stains	O
@@ -25,4 +26,29 @@ esterase	I
 were	O
 strongly	O
 positive	O
+.	O
+
+Studies	O
+on	O
+immunoglobulinin	B
+E	I
+:	O
+the	O
+impact	O
+of	O
+a	O
+sojourn	O
+with	O
+Professor	O
+Dan	O
+H	O
+.	O
+
+Serum	O
+-	O
+ferritin	B
+in	O
+diagnosis	O
+of	O
+haemochromatosis	O
 .	O

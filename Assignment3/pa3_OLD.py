@@ -22,7 +22,7 @@ class TagObject:
 		if word in self.wordCounts:
 			return float(self.wordCounts[word] / self.totalTagOccurances)
 		else:
-			return float(.01 / self.totalTagOccurances)	
+			return float(.05 / self.totalTagOccurances)	
 
 	def probTagGivenThis(self,tag):
 		if tag in self.tagCounts:
@@ -40,24 +40,14 @@ class TagObject:
 
 	def probFeature(self,feature):
 		if (feature[-1:] == "Y"):
-			if ((feature[0:-1] + "N") in self.featureCounts) and (feature in self.featureCounts):
-				return float(self.featureCounts[feature] / (self.featureCounts[feature] + self.featureCounts[feature[0:-1] + "N"]))
-			elif feature in self.featureCounts:
-				return 1
-			else:
-				return .00001
+			return float(self.featureCounts[feature] / self.featureCounts[feature] + self.featureCounts[feature[0:-1] + "N"])
 		else:
-			if ((feature[0:-1] + "Y") in self.featureCounts) and ( feature in self.featureCounts):
-				return float(self.featureCounts[feature] / (self.featureCounts[feature] + self.featureCounts[feature[0:-1] + "Y"]))
-			elif feature in self.featureCounts:
-				return 1
-			else:
-				return .00001
+			return float(self.featureCounts[feature] / self.featureCounts[feature] + self.featureCounts[feature[0:-1] + "Y"])
 	def addFeature(self,feature):
 		if feature in self.featureCounts:
 			self.featureCounts[feature] += 1
 		else:
-			self.featureCounts[feature] = 1
+			self.featureCounts[feature] = 1		
 	
 	def addTag(self,tag):
 		if tag in self.tagCounts:
@@ -136,22 +126,12 @@ def getDerivations(word):
 			derivations.append("Suffix_IN_Y")
 		else:
 			derivations.append("Suffix_IN_N")
-	else:
-		derivations.append("Suffix_IN_N")
 	#Suffix ASE
 	if (len(word) > 3):
 		if (word[-3:] == "ase"):
 			derivations.append("Suffix_ASE_Y")
 		else:
 			derivations.append("Suffix_ASE_N")
-	else:
-		derivations.append("Suffix_ASE_N")
-
-	#First Letter Cap
-	if (word[0].isupper()):
-		derivations.append("First_Letter_Cap_Y")
-	else:
-		derivations.append("First_Letter_Cap_N")
 
 	return derivations
 
@@ -159,14 +139,14 @@ def getDerivations(word):
 def createCounts(tagObjects,words,tags):
 	for i in range(0,len(words)-1):
 		tagObjects[tags[i]].addWord(words[i])
-		tagObjects[tags[i]].addTag(tags[i+1])
 
-				# Temporarily add some other derivational words. 
+		# Temporarily add some other derivational words. 
 		## COMMENT OUT TO REMOVE ANY CHANGSE FROM ORIGINAL STRAT ##
-		derivations = getDerivations(words[i])
-		for derivation in derivations:
-			tagObjects[tags[i]].addFeature(derivation)
+		#derivations = getDerivations(words[i])
+		#for derivation in derivations:
+			#tagObjects[tags[i]].addFeature(derivation)
 		############################################################
+		tagObjects[tags[i]].addTag(tags[i+1])
 
 	for i in range(0,len(tagObjects)):
 		tagObjects[tagObjects.keys()[i]].smooth()
@@ -191,9 +171,7 @@ def viterbi(observations, tagObjects,tags,predictedStates):
 		# Probability of tag given "START" state before it. 
 		probTagGivenStart = -math.log(tagObjects["START"].probTagGivenThis(tagObjects.keys()[s]))
 		# Probability of the word given the tag. 
-		derivations = getDerivations(observations[0])
-
-		probWordGivenTag = -math.log(tagObjects[tagObjects.keys()[s]].probabilityWord(observations[0])) * .8 + -math.log(tagObjects[tagObjects.keys()[s]].probFeature(derivations[0])) * .13 + -math.log(tagObjects[tagObjects.keys()[s]].probFeature(derivations[1])) * .13 + -math.log(tagObjects[tagObjects.keys()[s]].probFeature(derivations[2])) * .13
+		probWordGivenTag = -math.log(tagObjects[tagObjects.keys()[s]].probabilityWord(observations[0])) 
 		# Set the first viterbi probability
 		viterbi[0][s] = probTagGivenStart+probWordGivenTag
 		# Initialize the first backpointer to START
@@ -222,13 +200,6 @@ def viterbi(observations, tagObjects,tags,predictedStates):
 				# Check if any derivations of this word have a better probability
 				####COMMENT OUT TO REMOVE ANY CHANGSE FROM ORIGINAL STRATS ####
 				derivations = getDerivations(observations[t])
-
-				#if (tagObjects.keys()[s] == "START" or tagObjects.keys()[s] == "END"):
-				#	probWordGivenTag = 99999
-
-				#else:
-					# Probability of this observation(word) given the state(tag)
-				probWordGivenTag = -math.log(tagObjects[tagObjects.keys()[s]].probabilityWord(observations[t])) * .8 + -math.log(tagObjects[tagObjects.keys()[s]].probFeature(derivations[0])) * .13 + -math.log(tagObjects[tagObjects.keys()[s]].probFeature(derivations[1])) * .13 + -math.log(tagObjects[tagObjects.keys()[s]].probFeature(derivations[2])) * .13
 				
 				#for derivation in derivations:
 					#tagObjects[tagObjects.keys()[s]].probFeature(derivation)
@@ -359,7 +330,6 @@ def main():
 	# Populate the sentences array 
 	readFileToSentences(testingDataFileName,sentences)
 
-	print "done reading the file"
 	# Open the output file 
 	f1=open(outputDataFilename,'w+')
 	count = 0
