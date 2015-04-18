@@ -1,0 +1,14 @@
+word1	O
+word2	O
+word3	B
+word4	I
+word5	O
+.	B
+
+word1	O
+word2	O
+word3	B
+word4	O
+word5	O
+word6	O
+.	B

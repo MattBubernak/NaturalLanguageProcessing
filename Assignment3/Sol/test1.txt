@@ -3,9 +3,9 @@ with	O
 alkaline	B
 phosphatases	I
 and	O
-5	O
--	O
-nucleotidase	O
+5	B
+-	I
+nucleotidase	I
 
 Pharmacologic	O
 aspects	O
@@ -85,7 +85,7 @@ at	O
 night	O
 .	O
 
-Beta	B
+Beta	O
 blocking	O
 agents	O
 .	O
@@ -220,7 +220,7 @@ weight	O
 
 Serum	B
 gamma	I
-glutamyltransferase	O
+glutamyltransferase	I
 in	O
 the	O
 diagnosis	O
@@ -234,9 +234,9 @@ cattle	O
 By	O
 contrast	O
 ,	O
-secretory	O
-HI	O
-antibodies	O
+secretory	B
+HI	I
+antibodies	I
 were	O
 not	O
 demonstrated	O
@@ -312,7 +312,7 @@ association	O
 with	O
 HLA	B
 -	I
-B5	O
+B5	I
 .	O
 
 SGPT	B
@@ -331,11 +331,11 @@ all	O
 subjects	O
 .	O
 
-Gamma	O
+Gamma	B
 glutamyl	I
 transpeptidase	I
 (	O
-GGTP	O
+GGTP	B
 )	O
 activity	O
 in	O
@@ -371,20 +371,20 @@ of	O
 central	O
 alpha	B
 -	I
-autoreceptors	O
+autoreceptors	I
 following	O
 treatment	O
 with	O
-alpha	B
--	I
+alpha	O
+-	O
 methyldopa	O
 and	O
 FLA	O
 136	O
 .	O
 
-Anti	B
--	I
+Anti	O
+-	O
 anxiety	O
 action	O
 of	O
@@ -422,7 +422,7 @@ epithelium	O
 
 An	O
 IgG	B
-monoclonal	I
+monoclonal	O
 gammopathy	O
 was	O
 present	O
@@ -460,7 +460,7 @@ Dan	O
 H	O
 .	O
 
-Peroxydase	O
+Peroxydase	B
 reaction	O
 stains	O
 were	O
@@ -521,7 +521,7 @@ fraction	O
 (	O
 HPF	O
 ),	O
-cryoglobulin	O
+cryoglobulin	B
 and	O
 total	O
 plasma	O
@@ -651,9 +651,9 @@ absent	O
 
 False	O
 positive	O
-amniotic	O
-fluid	O
-alpha	B
+amniotic	B
+fluid	I
+alpha	I
 fetoprotein	I
 levels	O
 resulting	O
@@ -669,9 +669,9 @@ an	O
 experiment	O
 .	O
 
-Serum	B
--	I
-ferritin	I
+Serum	O
+-	O
+ferritin	B
 in	O
 diagnosis	O
 of	O
@@ -700,9 +700,9 @@ of	O
 hypothyroidism	O
 .	O
 
-Albumin	O
+Albumin	B
 and	O
-cyclic	B
+cyclic	O
 AMP	O
 levels	O
 in	O
@@ -751,7 +751,7 @@ the	O
 other	O
 hand	O
 factor	B
-IX	O
+IX	I
 activity	O
 is	O
 decreased	O
@@ -761,7 +761,7 @@ treatment	O
 with	O
 factor	B
 IX	I
-antigen	I
+antigen	O
 remaining	O
 normal	O
 .	O
@@ -773,21 +773,21 @@ alpha	B
 2	I
 -	I
 macroglobulin	I
-,	I
-alpha	I
+,	O
+alpha	B
 1	I
 -	I
 antitrypsin	I
-,	I
-plasminogen	I
+,	O
+plasminogen	B
 ,	O
 C3	B
 -	I
 complement	I
 ,	O
 fibrinogen	B
-degradation	O
-products	O
+degradation	I
+products	I
 (	O
 FDP	B
 )	O
@@ -1011,11 +1011,11 @@ explained	O
 by	O
 interference	O
 with	O
-thyroid	B
-hormone	I
-binding	I
-to	I
-TBG	I
+thyroid	O
+hormone	O
+binding	O
+to	O
+TBG	B
 combined	O
 with	O
 enzyme	O
@@ -1098,7 +1098,7 @@ visual	O
 stimuli	O
 ;	O
 (	O
-c	B
+c	O
 )	O
 neurons	O
 inhibited	O
@@ -1211,7 +1211,7 @@ similarities	O
 with	O
 Type	O
 IV	O
-glycogen	B
+glycogen	O
 storage	O
 disease	O
 (	O
@@ -1241,7 +1241,7 @@ in	O
 a	O
 Hebb	O
 -	O
-Williams	B
+Williams	O
 maze	O
 at	O
 100	O
@@ -1285,7 +1285,7 @@ M1	O
 M2	O
 ,	O
 and	O
-M3	B
+M3	O
 peaks	O
 )	O
 in	O
@@ -1487,8 +1487,8 @@ of	O
 colchicine	O
 ,	O
 the	O
-serum	O
-ceruloplasmin	B
+serum	B
+ceruloplasmin	I
 level	O
 began	O
 to	O
@@ -1516,10 +1516,10 @@ dehydroepiandrosterone	O
 DHA	O
 )	O
 16	O
-alpha	B
--	I
-hydroxy	I
--	I
+alpha	O
+-	O
+hydroxy	O
+-	O
 DHA	O
 ,	O
 estriol	O
@@ -1664,9 +1664,9 @@ a	O
 8	O
 kb	O
 HindIII	B
--	I
-EcoRI	I
-fragment	I
+-	O
+EcoRI	B
+fragment	O
 .	O
 
 Accepting	O
@@ -2132,8 +2132,8 @@ correlation	O
 between	O
 PI	O
 ACTH	B
-and	I
-MSH	I
+and	O
+MSH	B
 contents	O
 .	O
 
@@ -2156,8 +2156,8 @@ was	O
 no	O
 correlation	O
 between	O
-serum	O
-LH	B
+serum	B
+LH	I
 and	O
 chronological	O
 or	O
@@ -2230,7 +2230,7 @@ on	O
 the	O
 intensity	O
 of	O
-tricarboxylic	O
+tricarboxylic	B
 acid	I
 dehydrogenase	I
 reactions	O
@@ -2271,7 +2271,7 @@ women	O
 The	O
 incidence	O
 of	O
-hepatitis	O
+hepatitis	B
 B	I
 antigen	I
 following	O
@@ -2339,8 +2339,8 @@ activity	O
 of	O
 cytochrome	B
 oxidase	I
-,	I
-peroxidase	I
+,	O
+peroxidase	B
 and	O
 in	O
 the	O
@@ -2371,13 +2371,13 @@ I	O
 with	O
 vitamin	O
 -	O
-D	I
--	I
-3	I
-and	I
-1	I
-alpha	I
--	I
+D	O
+-	O
+3	O
+and	O
+1	O
+alpha	O
+-	O
 Hydroxycholecalciferol	O
 consecutively	O
 resulted	O
@@ -2391,7 +2391,7 @@ to	O
 the	O
 normalisation	O
 of	O
-serum	B
+serum	O
 -	O
 calcium	O
 .	O
@@ -2438,13 +2438,13 @@ was	O
 maintained	O
 in	O
 the	O
-beta	B
--	I
+beta	O
+-	O
 block	O
 group	O
 .	O
-beta	I
--	I
+beta	O
+-	O
 Block	O
 prevented	O
 the	O
@@ -2536,12 +2536,12 @@ vitro	O
 
 Modulation	O
 of	O
-25	O
--	O
-hydroxyvitamin	O
-D3	O
--	O
-24	O
+25	B
+-	I
+hydroxyvitamin	I
+D3	I
+-	I
+24	I
 -	I
 hydroxylase	I
 by	O
@@ -2573,7 +2573,7 @@ messengers	O
 of	O
 SV40	O
 and	O
-polyoma	B
+polyoma	O
 viruses	O
 .	O
 
@@ -2593,8 +2593,8 @@ cortisol	O
 production	O
 .	O
 
-Serum	O
-ACTH	B
+Serum	B
+ACTH	I
 did	O
 not	O
 respond	O
@@ -2659,7 +2659,7 @@ Paulo	O
 Brazil	O
 .	O
 
-Gamma	O
+Gamma	B
 glutamyl	I
 transpeptidase	I
 activity	O
@@ -2679,7 +2679,7 @@ children	O
 ,	O
 who	O
 received	O
-aminopyrine	B
+aminopyrine	O
 for	O
 two	O
 weeks	O
@@ -2775,9 +2775,9 @@ boards	O
 
 Similarly	O
 ,	O
-maternal	O
-serum	O
-somatomedin	B
+maternal	B
+serum	I
+somatomedin	I
 A	I
 was	O
 significantly	O
@@ -2824,12 +2824,12 @@ the	O
 corresponding	O
 region	O
 of	O
-X	O
-.	O
-laevis	O
-oocyte	O
-5S	B
-DNA	O
+X	B
+.	I
+laevis	I
+oocyte	I
+5S	I
+DNA	I
 .	O
 
 This	O
@@ -2871,7 +2871,7 @@ and	O
 treatment	O
 planning	O
 in	O
-Class	B
+Class	O
 II	O
 ,	O
 division	O
@@ -3012,8 +3012,8 @@ On	O
 the	O
 basis	O
 of	O
-serum	O
-alpha1AT	O
+serum	B
+alpha1AT	I
 quantitation	O
 ,	O
 newborn	O
@@ -3180,8 +3180,8 @@ used	O
 High	O
 levels	O
 of	O
-serum	B
-calcitonin	I
+serum	O
+calcitonin	B
 were	O
 found	O
 in	O
@@ -3194,22 +3194,22 @@ failure	O
 
 Detection	O
 of	O
-anti	B
--	I
-lymphocyte	I
-antibodies	I
+anti	O
+-	O
+lymphocyte	O
+antibodies	O
 using	O
 the	O
 immunoperoxidase	B
-antiglobulin	O
+antiglobulin	I
 technic	O
 .	O
 
 The	O
 response	O
 of	O
-serum	O
-GH	B
+serum	B
+GH	I
 to	O
 arginine	O
 infusion	O
@@ -3220,7 +3220,7 @@ while	O
 that	O
 to	O
 insulin	B
--	I
+-	O
 induced	O
 hypoglycemia	O
 was	O
@@ -3285,7 +3285,7 @@ Black	O
 ,	O
 BALB	O
 /	O
-c	B
+c	O
 ,	O
 CBA	O
 /	O
@@ -3297,7 +3297,7 @@ C3H	O
 eB	O
 ).	O
 
-Williams	B
+Williams	O
 ,	O
 2	O
 August	O
@@ -3330,7 +3330,7 @@ whole	O
 virus	O
 vaccines	O
 containing	O
-type	O
+type	B
 B	I
 antigen	I
 only	O
@@ -3375,9 +3375,9 @@ given	O
 mg	O
 /	O
 kg	O
-Escherichia	O
-coli	O
-endotoxin	O
+Escherichia	B
+coli	I
+endotoxin	I
 intraperitoneally	O
 .	O
 
@@ -3537,18 +3537,18 @@ controls	O
 of	O
 luteinizing	B
 hormone	I
-(	I
-LH	I
+(	O
+LH	B
 ),	O
 follicle	B
 stimulating	I
 hormone	I
-(	I
-FSH	I
+(	O
+FSH	B
 ),	O
 prolactin	B
 (	O
-HPRL	O
+HPRL	B
 ),	O
 oestradiol	O
 (	O
@@ -3660,7 +3660,7 @@ days	O
 was	O
 better	O
 than	O
-chloramphenicol	B
+chloramphenicol	O
 with	O
 regard	O
 to	O
@@ -3702,7 +3702,7 @@ the	O
 principal	O
 dopamine	B
 receptor	I
-stimulating	I
+stimulating	O
 agents	O
 (	O
 apomorphine	O
@@ -4067,10 +4067,10 @@ os	O
 with	O
 the	O
 bactericidal	O
-beta	B
--	I
-lactam	I
--	I
+beta	O
+-	O
+lactam	O
+-	O
 antibiotic	O
 cephalexin	O
 during	O
@@ -4258,8 +4258,8 @@ literature	O
 heterophile	O
 antibodies	O
 against	O
-bovine	O
-gammaglobulin	O
+bovine	B
+gammaglobulin	I
 are	O
 regarded	O
 as	O
@@ -4334,8 +4334,8 @@ in	O
 arteriocavernous	O
 fistula	O
 
-Serum	B
-ferritin	I
+Serum	O
+ferritin	B
 concentration	O
 and	O
 bone	O
@@ -4461,7 +4461,7 @@ The	O
 preferential	O
 serum	B
 IgA	I
-response	I
+response	O
 observed	O
 in	O
 the	O
@@ -4524,7 +4524,7 @@ injection	O
 (	O
 i	O
 .	O
-c	B
+c	O
 .	O
 i	O
 .)	O
@@ -4604,8 +4604,8 @@ Serial	O
 measurements	O
 of	O
 total	O
-serum	B
-IgE	I
+serum	O
+IgE	B
 appears	O
 to	O
 be	O
@@ -4632,8 +4632,8 @@ diastolic	O
 values	O
 of	O
 delta	O
-PU	B
-and	I
+PU	O
+and	O
 delta	O
 PM	O
 was	O
@@ -4732,8 +4732,8 @@ of	O
 intraventricular	O
 administration	O
 of	O
-streptolysin	O
-O	O
+streptolysin	B
+O	I
 on	O
 the	O
 electroencephalogram	O
@@ -4925,7 +4925,7 @@ is	O
 concluded	O
 that	O
 opiate	B
-receptors	O
+receptors	I
 bordering	O
 the	O
 fourth	O
@@ -5129,10 +5129,10 @@ carboxyphenyl	O
 )-	O
 5	O
 -	O
-hydroxymethyl	I
--	I
-2	I
--	I
+hydroxymethyl	O
+-	O
+2	O
+-	O
 oxazolidinone	O
 and	O
 a	O
@@ -5243,7 +5243,7 @@ hamsters	O
 Changes	O
 of	O
 thirtynine	O
-serum	B
+serum	O
 protein	O
 components	O
 following	O
@@ -5843,21 +5843,21 @@ compounds	O
 tested	O
 ,	O
 alpha	O
--(	I
-3	I
--	I
-methyl	I
--	I
-2	I
--	I
-quinoxalinyl	I
-)-	I
-N	I
--	I
-methylnitrone	I
-1	I
+-(	O
+3	O
+-	O
+methyl	O
+-	O
+2	O
+-	O
+quinoxalinyl	O
+)-	O
+N	O
+-	O
+methylnitrone	O
+1	O
 ,	O
-4	I
+4	O
 -	O
 dioxide	O
 (	O
@@ -6080,8 +6080,8 @@ transformed	O
 to	O
 3H	O
 -	O
-alpha	B
--	I
+alpha	O
+-	O
 acetyldigoxin	O
 .	O
 
@@ -6276,9 +6276,9 @@ comprehension	O
 of	O
 spectrum	O
 of	O
-allergospecific	O
-IgE	B
-antibodies	O
+allergospecific	B
+IgE	I
+antibodies	I
 
 The	O
 induction	O
@@ -6314,7 +6314,7 @@ fibrinolytic	O
 degradation	O
 products	O
 (	O
-FDP	B
+FDP	O
 )	O
 and	O
 the	O
@@ -6560,8 +6560,8 @@ Serum	O
 levels	O
 of	O
 IgG	B
-and	I
-IgM	I
+and	O
+IgM	B
 were	O
 also	O
 raised	O
@@ -6586,8 +6586,8 @@ heart	O
 disease	O
 induced	O
 by	O
-thromboxane	B
-A2	I
+thromboxane	O
+A2	O
 in	O
 rabbits	O
 .	O
@@ -6635,7 +6635,7 @@ undertaken	O
 No	O
 systematic	O
 L	O
--	I
+-	O
 R	O
 differences	O
 were	O
@@ -6783,7 +6783,7 @@ propranolol	O
 mg	O
 ).	O
 
-Stress	B
+Stress	O
 effects	O
 on	O
 affiliation	O
@@ -6879,7 +6879,7 @@ concurrent	O
 blockade	O
 of	O
 alpha	B
--	O
+-	I
 and	I
 beta	I
 -	I
@@ -7006,8 +7006,8 @@ The	O
 multiple	O
 factors	O
 affecting	O
-plasma	B
-renin	I
+plasma	O
+renin	B
 activity	O
 in	O
 essential	O
@@ -7309,7 +7309,7 @@ of	O
 the	O
 liver	O
 ferritin	B
-molecules	I
+molecules	O
 .	O
 
 Female	O
@@ -7359,7 +7359,7 @@ large	O
 auditory	O
 fibers	O
 of	O
-goldfish	B
+goldfish	O
 to	O
 investigate	O
 the	O
@@ -7802,9 +7802,9 @@ was	O
 37	O
 %,	O
 the	O
-total	O
--	O
-CPK	B
+total	B
+-	I
+CPK	I
 activity	O
 of	O
 human	O
@@ -8021,7 +8021,7 @@ a	O
 combination	O
 of	O
 the	O
-adrenergic	O
+adrenergic	B
 beta	I
 receptor	I
 blockader	O
@@ -8292,8 +8292,8 @@ for	O
 sec	O
 .	O
 
-Serum	O
-relaxin	O
+Serum	B
+relaxin	I
 levels	O
 in	O
 prostaglandin	O
@@ -8550,9 +8550,9 @@ serotonin	O
 HT	O
 )	O
 and	O
-5	O
--	O
-HT	O
+5	B
+-	I
+HT	I
 releasing	I
 factor	I
 in	O
@@ -8605,7 +8605,7 @@ Significant	O
 increases	O
 in	O
 mean	O
-serum	B
+serum	O
 E2	O
 concentration	O
 (	O
@@ -8668,18 +8668,18 @@ studies	O
 of	O
 antibodies	O
 to	O
-Epstein	B
--	I
-Barr	I
-virus	I
+Epstein	O
+-	O
+Barr	O
+virus	O
 in	O
 infectious	O
 mononucleosis	O
 
 Carcinoembryonic	B
-antigen	O
-(	I
-CEA	I
+antigen	I
+(	O
+CEA	B
 )	O
 procedures	O
 and	O
@@ -8861,7 +8861,7 @@ patients	O
 
 Dialyzable	O
 transfer	B
-factor	O
+factor	I
 .	O
 
 19	O
@@ -8869,8 +8869,8 @@ factor	O
 32	O
 .	O
 
-Rheumatoid	O
-factor	O
+Rheumatoid	B
+factor	I
 and	O
 antinuclear	O
 antibody	O
@@ -9031,7 +9031,7 @@ with	O
 gastroduodenostomy	O
 (	O
 STG	O
--	I
+-	O
 BI	O
 )	O
 or	O
@@ -9399,7 +9399,7 @@ their	O
 capacity	O
 to	O
 yield	O
-T	O
+T	B
 -	I
 2	I
 toxin	I
@@ -9481,7 +9481,7 @@ among	O
 the	O
 5	O
 whose	O
-properdin	O
+properdin	B
 levels	O
 remained	O
 below	O
@@ -9518,7 +9518,7 @@ with	O
 heparin	O
 ,	O
 plasminogen	B
-activators	I
+activators	O
 and	O
 fibrinogenolytic	O
 agents	O
@@ -9553,9 +9553,9 @@ of	O
 2	O
 -	O
 benzylidenamio	O
--	I
-1	I
--	I
+-	O
+1	O
+-	O
 phenylpropane	O
 ,	O
 which	O
@@ -9660,8 +9660,8 @@ esters	O
 ,	O
 and	O
 their	O
-anti	B
--	I
+anti	O
+-	O
 inflammatory	O
 activity	O
 was	O
@@ -9809,13 +9809,13 @@ piscivorus	O
 and	O
 of	O
 the	O
-Direct	O
-Lytic	O
-Factor	B
+Direct	B
+Lytic	I
+Factor	I
 and	O
-Phospholipase	O
--	O
-A	O
+Phospholipase	B
+-	I
+A	I
 ,	O
 compounds	O
 purified	O

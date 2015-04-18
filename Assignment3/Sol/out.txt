@@ -15,7 +15,7 @@ hyperbilirubinemia	O
 .	O
 
 When	O
-CSF	O
+CSF	B
 [	O
 HCO3	O
 -]	O
@@ -25,7 +25,7 @@ as	O
 a	O
 function	O
 of	O
-CSF	O
+CSF	B
 PCO2	O
 the	O
 data	O
@@ -312,7 +312,7 @@ association	O
 with	O
 HLA	B
 -	I
-B5	O
+B5	I
 .	O
 
 SGPT	B
@@ -332,8 +332,8 @@ subjects	O
 .	O
 
 Gamma	O
-glutamyl	I
-transpeptidase	I
+glutamyl	O
+transpeptidase	O
 (	O
 GGTP	O
 )	O
@@ -554,7 +554,7 @@ pulmonary	O
 carcinoma	O
 .	O
 
-A	O
+A	I
 mixture	O
 of	O
 human	B
@@ -700,9 +700,9 @@ of	O
 hypothyroidism	O
 .	O
 
-Albumin	O
+Albumin	B
 and	O
-cyclic	B
+cyclic	O
 AMP	O
 levels	O
 in	O
@@ -750,7 +750,7 @@ On	O
 the	O
 other	O
 hand	O
-factor	B
+factor	O
 IX	O
 activity	O
 is	O
@@ -783,7 +783,7 @@ plasminogen	I
 ,	O
 C3	B
 -	I
-complement	I
+complement	O
 ,	O
 fibrinogen	B
 degradation	O
@@ -863,7 +863,7 @@ mg	O
 daily	O
 .	O
 
-T4	O
+T4	B
 and	O
 FT4I	O
 followed	O
@@ -907,7 +907,7 @@ than	O
 001	O
 ).	O
 
-A	O
+A	I
 three	O
 -	O
 phased	O
@@ -1107,9 +1107,9 @@ visual	O
 stimuli	O
 .	O
 
-Pentobarbital	O
-(	O
-1	O
+Pentobarbital	I
+(	I
+1	I
 ,	O
 3	O
 ,	O
@@ -1396,7 +1396,7 @@ in	O
 IQs	O
 .	O
 
-VII	O
+VII	I
 .	O
 
 Several	O
@@ -1408,7 +1408,7 @@ populations	O
 in	O
 Uzbekistan	O
 
-2	O
+2	I
 .--	O
 concepts	O
 of	O
@@ -1513,10 +1513,10 @@ progesterone	O
 ,	O
 dehydroepiandrosterone	O
 (	O
-DHA	O
-)	O
-16	O
-alpha	B
+DHA	B
+)	I
+16	I
+alpha	I
 -	I
 hydroxy	I
 -	I
@@ -2117,7 +2117,7 @@ thyroid	O
 carcinoma	O
 .	O
 
-A	O
+A	I
 striking	O
 finding	O
 in	O
@@ -2230,7 +2230,7 @@ on	O
 the	O
 intensity	O
 of	O
-tricarboxylic	O
+tricarboxylic	B
 acid	I
 dehydrogenase	I
 reactions	O
@@ -2271,7 +2271,7 @@ women	O
 The	O
 incidence	O
 of	O
-hepatitis	O
+hepatitis	B
 B	I
 antigen	I
 following	O
@@ -2319,7 +2319,7 @@ myocardial	O
 infarction	O
 .	O
 
-A	O
+A	I
 similar	O
 phenomenon	O
 has	O
@@ -2369,8 +2369,8 @@ pseudohypoparathyroidism	O
 type	O
 I	O
 with	O
-vitamin	O
--	O
+vitamin	B
+-	I
 D	I
 -	I
 3	I
@@ -2391,7 +2391,7 @@ to	O
 the	O
 normalisation	O
 of	O
-serum	B
+serum	O
 -	O
 calcium	O
 .	O
@@ -2443,7 +2443,7 @@ beta	B
 block	O
 group	O
 .	O
-beta	I
+beta	B
 -	I
 Block	O
 prevented	O
@@ -2509,10 +2509,10 @@ seen	O
 during	O
 severe	O
 hypoxia	O
-.	O
+.	I
 
-Phenobarbital	O
--	O
+Phenobarbital	I
+-	I
 induced	O
 alterations	O
 in	O
@@ -2539,9 +2539,9 @@ of	O
 25	O
 -	O
 hydroxyvitamin	O
-D3	O
--	O
-24	O
+D3	B
+-	I
+24	I
 -	I
 hydroxylase	I
 by	O
@@ -2660,8 +2660,8 @@ Brazil	O
 .	O
 
 Gamma	O
-glutamyl	I
-transpeptidase	I
+glutamyl	O
+transpeptidase	O
 activity	O
 was	O
 increased	O
@@ -2690,7 +2690,7 @@ longer	O
 XXI	O
 .	O
 
-A	O
+A	I
 gas	O
 -	O
 liquid	O
@@ -2726,10 +2726,10 @@ crystallographic	O
 study	O
 .	O
 
-V	O
+V	I
 .	O
 
-A	O
+A	I
 rapid	O
 fluorimetric	O
 procedure	O
@@ -2871,7 +2871,7 @@ and	O
 treatment	O
 planning	O
 in	O
-Class	B
+Class	O
 II	O
 ,	O
 division	O
@@ -3120,7 +3120,7 @@ infertile	O
 women	O
 .	O
 
-A	O
+A	I
 total	O
 of	O
 26	O
@@ -3330,7 +3330,7 @@ whole	O
 virus	O
 vaccines	O
 containing	O
-type	O
+type	B
 B	I
 antigen	I
 only	O
@@ -3412,7 +3412,7 @@ dermal	O
 weeks	O
 .	O
 
-A	O
+A	I
 study	O
 of	O
 the	O
@@ -3543,8 +3543,8 @@ LH	I
 follicle	B
 stimulating	I
 hormone	I
-(	I
-FSH	I
+(	O
+FSH	B
 ),	O
 prolactin	B
 (	O
@@ -3618,7 +3618,7 @@ is	O
 observed	O
 .	O
 
-A	O
+A	I
 randomized	O
 clinical	O
 trial	O
@@ -3786,8 +3786,8 @@ in	O
 milk	O
 .	O
 
-Capsular	O
-antigens	O
+Capsular	I
+antigens	I
 of	O
 Staphylococcus	O
 aureus	O
@@ -3803,7 +3803,7 @@ by	O
 ALS	O
 .	O
 
-2	O
+2	I
 new	O
 Algerian	O
 cases	O
@@ -3890,7 +3890,7 @@ vascular	O
 cavities	O
 .	O
 
-2	O
+2	I
 .	O
 
 Changes	O
@@ -4080,7 +4080,7 @@ to	O
 weeks	O
 .	O
 
-A	O
+A	I
 total	O
 of	O
 57	O
@@ -4221,12 +4221,12 @@ immunoassay	O
 i	O
 .	O
 
-Biliary	O
--	O
+Biliary	I
+-	I
 enteric	O
 fistulas	O
 
-Plasma	O
+Plasma	B
 ion	O
 changes	O
 in	O
@@ -4305,19 +4305,19 @@ intractable	O
 pain	O
 .	O
 
-Lethal	O
-Tachmalcor	O
-(	O
-4	O
--(	O
-3	O
-'-	O
-diethylamino	O
--	O
-2	O
-'-	O
-hydroxypropyl	O
-)-	O
+Lethal	I
+Tachmalcor	I
+(	I
+4	I
+-(	I
+3	I
+'-	I
+diethylamino	I
+-	I
+2	I
+'-	I
+hydroxypropyl	I
+)-	I
 ajmaline	O
 )	O
 poisoning	O
@@ -4374,7 +4374,7 @@ pressure	O
 transducers	O
 .	O
 
-A	O
+A	I
 prospective	O
 trail	O
 comparing	O
@@ -4558,7 +4558,7 @@ cisterna	O
 magna	O
 .	O
 
-Platelet	O
+Platelet	B
 number	O
 and	O
 life	O
@@ -4633,7 +4633,7 @@ values	O
 of	O
 delta	O
 PU	B
-and	I
+and	O
 delta	O
 PM	O
 was	O
@@ -4651,7 +4651,7 @@ SD	O
 mmHg	O
 .	O
 
-A	O
+A	I
 rise	O
 of	O
 hemoglobin	B
@@ -4924,7 +4924,7 @@ It	O
 is	O
 concluded	O
 that	O
-opiate	B
+opiate	O
 receptors	O
 bordering	O
 the	O
@@ -5121,14 +5121,14 @@ major	O
 urinary	O
 metabolites	O
 were	O
-3	O
--(	O
-3	O
--	O
-carboxyphenyl	O
-)-	O
-5	O
--	O
+3	B
+-(	I
+3	I
+-	I
+carboxyphenyl	I
+)-	I
+5	I
+-	I
 hydroxymethyl	I
 -	I
 2	I
@@ -5244,7 +5244,7 @@ Changes	O
 of	O
 thirtynine	O
 serum	B
-protein	O
+protein	I
 components	O
 following	O
 surgical	O
@@ -5263,7 +5263,7 @@ standard	O
 textbooks	O
 .	O
 
-A	O
+A	I
 study	O
 of	O
 the	O
@@ -5484,7 +5484,7 @@ in	O
 9	O
 .	O
 
-Urinary	O
+Urinary	B
 excretion	O
 of	O
 oestrone	O
@@ -5842,7 +5842,7 @@ the	O
 compounds	O
 tested	O
 ,	O
-alpha	O
+alpha	B
 -(	I
 3	I
 -	I
@@ -5857,7 +5857,7 @@ N	I
 methylnitrone	I
 1	I
 ,	O
-4	I
+4	O
 -	O
 dioxide	O
 (	O
@@ -6278,7 +6278,7 @@ spectrum	O
 of	O
 allergospecific	O
 IgE	B
-antibodies	O
+antibodies	I
 
 The	O
 induction	O
@@ -6300,7 +6300,7 @@ intermittent	O
 photic	O
 stimulation	O
 
-A	O
+A	I
 highly	O
 significant	O
 correlation	O
@@ -6455,7 +6455,7 @@ female	O
 rat	O
 .	O
 
-2	O
+2	I
 cases	O
 of	O
 toxic	O
@@ -6492,7 +6492,7 @@ pH	O
 ratio	O
 ).	O
 
-A	O
+A	I
 one	O
 -	O
 week	O
@@ -6556,12 +6556,12 @@ diarrhea	O
 stopped	O
 .	O
 
-Serum	O
+Serum	B
 levels	O
 of	O
 IgG	B
-and	I
-IgM	I
+and	O
+IgM	B
 were	O
 also	O
 raised	O
@@ -6634,15 +6634,15 @@ undertaken	O
 
 No	O
 systematic	O
-L	O
+L	B
 -	I
-R	O
+R	I
 differences	O
 were	O
 observed	O
 .	O
 
-A	O
+A	I
 decrease	O
 of	O
 the	O
@@ -6700,7 +6700,7 @@ UV	O
 A	O
 ).	O
 
-1	O
+1	I
 The	O
 effects	O
 in	O
@@ -6879,7 +6879,7 @@ concurrent	O
 blockade	O
 of	O
 alpha	B
--	O
+-	I
 and	I
 beta	I
 -	I
@@ -6975,10 +6975,10 @@ on	O
 Cyprinus	O
 carpio	O
 
-Kodak	O
-XV	O
--	O
-2	O
+Kodak	I
+XV	I
+-	I
+2	I
 film	O
 is	O
 wrapped	O
@@ -7027,7 +7027,7 @@ clearing	O
 agents	O
 .	O
 
-2	O
+2	I
 )	O
 The	O
 time	O
@@ -7227,7 +7227,7 @@ visual	O
 pathway	O
 .	O
 
-Escherichia	O
+Escherichia	B
 of	O
 a	O
 single	O
@@ -7240,7 +7240,7 @@ type	O
 :	O
 K13	O
 :	O
-H1	O
+H1	B
 )	O
 were	O
 isolated	O
@@ -7677,7 +7677,7 @@ the	O
 hip	O
 joint	O
 
-A	O
+A	I
 suspected	O
 hypothalamic	O
 dysfunction	O
@@ -7698,7 +7698,7 @@ endocrinological	O
 features	O
 .	O
 
-A	O
+A	I
 sharp	O
 outbreak	O
 of	O
@@ -7717,10 +7717,10 @@ to	O
 an	O
 A	O
 /	O
-Texas	O
-/	O
-1	O
-/	O
+Texas	B
+/	I
+1	I
+/	I
 77	O
 -	O
 like	O
@@ -7840,7 +7840,7 @@ biliary	O
 liver	O
 cirrhosis	O
 
-A	O
+A	I
 one	O
 -	O
 way	O
@@ -8022,7 +8022,7 @@ combination	O
 of	O
 the	O
 adrenergic	O
-beta	I
+beta	B
 receptor	I
 blockader	O
 ,	O
@@ -8199,7 +8199,7 @@ et	O
 al	O
 .	O
 
-A	O
+A	I
 36	O
 year	O
 -	O
@@ -8292,7 +8292,7 @@ for	O
 sec	O
 .	O
 
-Serum	O
+Serum	B
 relaxin	O
 levels	O
 in	O
@@ -8302,7 +8302,7 @@ induced	O
 abortions	O
 .	O
 
-A	O
+A	I
 --	O
 A	O
 natural	O
@@ -8423,7 +8423,7 @@ fig	O
 )	O
 (	O
 3	O
-).	O
+).	I
 
 Effect	O
 of	O
@@ -8542,7 +8542,7 @@ the	O
 ICSH	O
 .	O
 
-Platelet	O
+Platelet	B
 serotonin	O
 (	O
 5	O
@@ -8552,7 +8552,7 @@ HT	O
 and	O
 5	O
 -	O
-HT	O
+HT	B
 releasing	I
 factor	I
 in	O
@@ -8605,7 +8605,7 @@ Significant	O
 increases	O
 in	O
 mean	O
-serum	B
+serum	O
 E2	O
 concentration	O
 (	O
@@ -8676,8 +8676,8 @@ in	O
 infectious	O
 mononucleosis	O
 
-Carcinoembryonic	B
-antigen	O
+Carcinoembryonic	I
+antigen	I
 (	I
 CEA	I
 )	O
@@ -8859,18 +8859,18 @@ extremely	O
 hostile	O
 patients	O
 
-Dialyzable	O
-transfer	B
-factor	O
+Dialyzable	I
+transfer	I
+factor	I
 .	O
 
-19	O
--	O
+19	I
+-	I
 32	O
 .	O
 
-Rheumatoid	O
-factor	O
+Rheumatoid	I
+factor	I
 and	O
 antinuclear	O
 antibody	O
@@ -8978,10 +8978,10 @@ by	O
 2	O
 .	O
 
-III	O
+III	I
 .	O
 
-A	O
+A	I
 new	O
 instrument	O
 has	O
@@ -9030,9 +9030,9 @@ gastrectomy	O
 with	O
 gastroduodenostomy	O
 (	O
-STG	O
+STG	B
 -	I
-BI	O
+BI	I
 )	O
 or	O
 with	O
@@ -9094,7 +9094,7 @@ drug	O
 alone	O
 .	O
 
-A	O
+A	I
 five	O
 -	O
 phase	O
@@ -9172,7 +9172,7 @@ the	O
 rabbit	O
 .	O
 
-A	O
+A	I
 diagnosis	O
 of	O
 MS	O
@@ -9399,7 +9399,7 @@ their	O
 capacity	O
 to	O
 yield	O
-T	O
+T	B
 -	I
 2	I
 toxin	I
@@ -9416,7 +9416,7 @@ clinical	O
 medicine	O
 .	O
 
-A	O
+A	I
 follow	O
 -	O
 up	O
@@ -9552,7 +9552,7 @@ that	O
 of	O
 2	O
 -	O
-benzylidenamio	O
+benzylidenamio	B
 -	I
 1	I
 -	I
@@ -9918,8 +9918,8 @@ near	O
 mm	O
 .	O
 
-Well	O
--	O
+Well	I
+-	I
 visualised	O
 arteriograms	O
 of	O
