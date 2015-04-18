@@ -1,433 +1,256 @@
-#Assignment2
-#Matt Bubernak
-from __future__ import division
-import re
-import collections
+#!/usr/bin/env python
 import math
-import cPickle as pickle
-import sys
-
+import os, sys
 import re
 
-# Defines a tag object
-class TagObject:
-	def __init__(self, tag):
-		self.tag = tag
-		self.wordCounts = collections.OrderedDict()
-		self.tagCounts = collections.OrderedDict()
-		self.featureCounts = collections.OrderedDict()
-		self.totalTagOccurances = 0
+#emissin_prob: P( word | tag )
+#transition_rrob: P( tag_i | tag_{i-1} )
+#emission_firstCapital_prob: P( the character is capitalized (0 or 1) | tag )
+#emission_allCapital_prob: P( all character are capitalized (0 or 1) | tag )
+tagList = ["I", "B", "O"]
+tagType = {"I":0, "B":1, "O":2}
+tagTotalCounts = {0:0, 1:0, 2:0}
+emission_cnt = [{} for _ in xrange(len(tagList))]
+transition_cnt = [[0 for _ in xrange(len(tagList))] for _ in xrange(len(tagList))]
 
-	def probabilityWord(self,word):
-		if word in self.wordCounts:
-			return float(self.wordCounts[word] / self.totalTagOccurances)
-		else:
-			return .00000000001#float(.005 / self.totalTagOccurances)	
+emission_allCapital_cnt = [[0,0] for _ in xrange(len(tagList))]
+emission_firstCapital_cnt = [[0,0] for _ in xrange(len(tagList))]
+emission_feature3_cnt = [[0,0] for _ in xrange(len(tagList))]
+emission_feature4_cnt = [[0,0] for _ in xrange(len(tagList))]
+emission_feature5_cnt = [[0,0] for _ in xrange(len(tagList))]
+firstTag_cnt = [0 for _ in xrange(len(tagList))]
 
-	def probTagGivenThis(self,tag):
-		if tag in self.tagCounts:
-			return float(self.tagCounts[tag] / self.totalTagOccurances)
-		else:
-			return float(.0015 / self.totalTagOccurances)
+emission_prob = [{} for _ in xrange(len(tagList))]
+emission_allCapital_prob = [[0,0] for _ in xrange(len(tagList))]
+emission_firstCapital_prob = [[0,0] for _ in xrange(len(tagList))]
+emission_feature3_prob = [[0,0] for _ in xrange(len(tagList))]
+emission_feature4_prob = [[0,0] for _ in xrange(len(tagList))]
+emission_feature5_prob = [[0,0] for _ in xrange(len(tagList))]
 
-	def addWord(self,word):
-		self.totalTagOccurances += 1
+transition_prob = [None for _ in xrange(len(tagList))]
+firstTag_prob = [None for _ in xrange(len(tagList))]
 
-		if word in self.wordCounts:
-			self.wordCounts[word] += 1
-		else:
-			self.wordCounts[word] = 1
+# weight for [emission_prob, emission_firstCaptial_prob, emission_allCapital_prob]
+weights = [0.9999995, 0.0000000005, 0.0000004700,0.000000028,0.00000000075 ,0.00000000075 ]
+#weights = [0.9999995, 0.000000000, 0.00000000,0.000000000,0.00000005]
 
-	def probFeature(self,feature):
-		if (feature[-1:] == "Y"):
-			if ((feature[0:-1] + "N") in self.featureCounts) and (feature in self.featureCounts):
-				return float(self.featureCounts[feature] / (self.featureCounts[feature] + self.featureCounts[feature[0:-1] + "N"]))
-			elif feature in self.featureCounts:
-				return 1
-			else:
-				return .00001
-		else:
-			if ((feature[0:-1] + "Y") in self.featureCounts) and ( feature in self.featureCounts):
-				return float(self.featureCounts[feature] / (self.featureCounts[feature] + self.featureCounts[feature[0:-1] + "Y"]))
-			elif feature in self.featureCounts:
-				return 1
-			else:
-				return .00001
-	def addFeature(self,feature):
-		if feature in self.featureCounts:
-			self.featureCounts[feature] += 1
-		else:
-			self.featureCounts[feature] = 1
-	
-	def addTag(self,tag):
-		if tag in self.tagCounts:
-			self.tagCounts[tag] += 1
-		else:
-			self.tagCounts[tag] = 1
+isAllCapitalRE = r"^[A-Z]+$"
+isFirstCapitalRE = r"[A-Z]+"
+isNumberAndCapRE = r"^(?=.*\d)(?=.*[A-Z])[A-Z\d]"
+isInSuffix = r"^.+in$"
+isAseSuffix = r"^.+ase$"
 
-	def printFeatureInfo(self):
-		for feature in self.featureCounts:
-			print "Probability of: " + feature + ":" + str(self.probFeature(feature)) + " for "+ self.tag
+def extractFeature(word):
 
-	def smooth(self):
-		#print "smooth"
-		for word in self.wordCounts:
-			self.wordCounts[word] +=1
-			self.totalTagOccurances+=1
-		for tag in self.tagCounts:
-			self.tagCounts[tag] += 1
+	"""
+	Given one word, return the matching of the feature
+	1 for True, 0 for False
+	word = "AAb" -> return [0, 1]
+	word = "AAB" -> return [0, 0]
+	word = "bbA" -> return [0, 0]
+	"""
 
-# Takes a filename, word array, and tag array, and reads reads them all into array, also populates a worddict with counts of each #
-# This replaces all periods with END, and starts each sentence with START. 
-def readFileToArrays(fileName,words,tags,wordDict,tagDict):
-	file = open(fileName)
-	lines = file.readlines()
-	
-	# Initliaze the array with a START
-	words.append("START")
-	tags.append("START")
-
-	for line in lines:
-		# Skip Newline
-		if (line != "\n" ):
-			part1 = re.split("\t",line)			
-			part2 = re.split("\n",part1[1])
-			words.append(part1[0])
-			tags.append(part2[0])
-		else:
-			words.append("END")
-			words.append("START")
-			tags.append("END")
-			tags.append("START")
-
-	# Append an END to the end.
-	if tags[len(tags)-1] == "START":
-		tags[len(tags)-1] = "END" 
-	if words[len(words)-1] == "START":
-		words[len(words)-1] = "END" 
-
-	#wordDict now has counts of each word, and the number of occurances 
-	for word in words:
-		if word in wordDict:
-			wordDict[word] = wordDict[word] +1
-		else:
-			wordDict[word] = 1
-			
-	#tagDict now has counts for each tag
-	for tag in tags:
-		if tag in tagDict: 
-			tagDict[tag] = tagDict[tag] + 1
-		else: 
-			tagDict[tag] = 1
-
-
-def getDerivations(word):
-	#is it all capital? 
-	#Is it first capital? 
-	#Suffix 
-	#Prefix
-	#lemmaize: remove common suffixes. 
-	#POS tagger?? Probabably would be useful. 
-	#medical dictionary?
-
-	derivations = []
-
-	#Multiple Capital Letters
-
-	#Suffix IN
-	#Suffix ASE
-	#if (len(word) > 3):
-	#	if (word[-3:] == "ase"):
-	#		derivations.append("Suffix_ASE_Y")
-	#	else:
-	#		derivations.append("Suffix_ASE_N")
+	#if (re.match(isInSuffix,"meenin")):
+	#	print "match"
 	#else:
-	#	derivations.append("Suffix_ASE_N")
+	#	print "not match"
 
-	#First Letter Cap
-#	if (word[0].isupper()):
-#		derivations.append("First_Letter_Cap_Y")
-#	else:
-#		derivations.append("First_Letter_Cap_N")
-	#caps = 0
-	#for letter in word:
-	#	if letter.isupper():
-	#		caps+=1
+	return [1 if (t != None) else 0 for t in [re.match(isAllCapitalRE, word), re.match(isFirstCapitalRE, word), re.match(isNumberAndCapRE, word),re.match(isInSuffix, word),re.match(isAseSuffix, word)]]
 
-	#multiple caps
-	if (re.match(r'.*[A-Z].*[A-Z].*',word)):
-		derivations.append("Mult_Letter_Cap_Y")
-	else:
-		derivations.append("Mult_Letter_Cap_N")
+def viterbiPath(tokenList):
+	"""
+	Given the a list of token(word), go through the viterbi algorithm
+	"""
+	viterbiTable = [ [ 0.0 for _ in xrange(len(tagList)) ] for _ in xrange(len(tokenList)) ]
+	backPointer = [ [ -1 for _ in xrange(len(tagList)) ] for _ in xrange(len(tokenList)) ]
 
-	#letter and number
-
-	if (re.match(r'.*[A-Z]+.*',word) and re.match(r'.*[0-9]+.*',word)):
-		derivations.append("cap_letter_num_Y")
-	else:
-		derivations.append("cap_letter_num_N")
-
-	# ends in in
-	if (len(word) > 2):
-		if (word[-2:] == "in"):
-			derivations.append("Suffix_IN_Y")
-		else:
-			derivations.append("Suffix_IN_N")
-	else:
-		derivations.append("Suffix_IN_N")
-
-
-	return derivations
- 
-  #  Populates tag objects with the necessary probabilities 
-def createCounts(tagObjects,words,tags):
-	for i in range(0,len(words)-1):
-		tagObjects[tags[i]].addWord(words[i])
-		tagObjects[tags[i]].addTag(tags[i+1])
-
-				# Temporarily add some other derivational words. 
-		## COMMENT OUT TO REMOVE ANY CHANGSE FROM ORIGINAL STRAT ##
-		derivations = getDerivations(words[i])
-		for derivation in derivations:
-			tagObjects[tags[i]].addFeature(derivation)
-		############################################################
-
-	for i in range(0,len(tagObjects)):
-		tagObjects[tagObjects.keys()[i]].smooth()
-
-
-def viterbi(observations, tagObjects,tags,predictedStates,weightVector):
-	
-	########################SETUP#########################
-
-	N = len(tagObjects) # Number of States
-	T = len(observations) # Number of Observations
-
-	# Initialize our Viterbi Matrix 
-	viterbi = [[0 for x in range(N+2)] for x in range(T)] 
-	# Initilize our Backpointer Matrix
-	backpointer = [[0 for x in range(N+2)] for x in range(T)]  
-
-	####################INITIALIZATION####################
-
-	# Set the initial probability for each tag. 
-	for s in range(0,N): 
-		# Probability of tag given "START" state before it. 
-		probTagGivenStart = -math.log(tagObjects["START"].probTagGivenThis(tagObjects.keys()[s]))
-		# Probability of the word given the tag. 
-		derivations = getDerivations(observations[0])
-		#probWordGivenTag = -math.log(tagObjects[tagObjects.keys()[s]].probabilityWord(observations[0]))
-		probWordGivenTag = -math.log(tagObjects[tagObjects.keys()[s]].probabilityWord(observations[0])) * weightVector[0]
-		probWordGivenTag += -math.log(tagObjects[tagObjects.keys()[s]].probFeature(derivations[0])) * weightVector[1] 
-		probWordGivenTag += -math.log(tagObjects[tagObjects.keys()[s]].probFeature(derivations[1])) * weightVector[2]
-		probWordGivenTag += -math.log(tagObjects[tagObjects.keys()[s]].probFeature(derivations[2])) * weightVector[3]
-		# Set the first viterbi probability
-		viterbi[0][s] = probTagGivenStart+probWordGivenTag
-		# Initialize the first backpointer to START
-		backpointer[0][s] = "START" 
-
-	######################RECURSION#######################
-	# For each observation(word) 
-	for t in range(1,T):
-
-		# For each state(tag)
-		for s in range(0,N):
-
-			#Viterbi Value Calculation
-			minVal1 = 99999999999999
-			viterbi[t][s] = 0
-			# For each previous tag 
-			for x in range(0,N):
-				# Previous Viterbi Value
-				prevVit = viterbi[t-1][x]
-				# Probability of this state(tag) given the previous state(tag) 
-				probTagGivenPrev = -math.log(tagObjects[tagObjects.keys()[x]].probTagGivenThis(tagObjects[tagObjects.keys()[s]].tag))
-				
-				# Probability of this observation(word) given the state(tag)
-				#probWordGivenTag = -math.log(tagObjects[tagObjects.keys()[s]].probabilityWord(observations[t])) #*5
-
-				# Check if any derivations of this word have a better probability
-				####COMMENT OUT TO REMOVE ANY CHANGSE FROM ORIGINAL STRATS ####
-				derivations = getDerivations(observations[t])
-
-				#if (tagObjects.keys()[s] == "START" or tagObjects.keys()[s] == "END"):
-				#	probWordGivenTag = 99999
-
-				#else:
-					# Probability of this observation(word) given the state(tag)
-				#probWordGivenTag = -math.log(tagObjects[tagObjects.keys()[s]].probabilityWord(observations[t]))
-				probWordGivenTag = -math.log(tagObjects[tagObjects.keys()[s]].probabilityWord(observations[t])) * weightVector[0] 
-				probWordGivenTag += -math.log(tagObjects[tagObjects.keys()[s]].probFeature(derivations[0])) * weightVector[1] 
-				probWordGivenTag += -math.log(tagObjects[tagObjects.keys()[s]].probFeature(derivations[1])) * weightVector[2] #+ -math.log(tagObjects[tagObjects.keys()[s]].probFeature(derivations[1])) * .13 + -math.log(tagObjects[tagObjects.keys()[s]].probFeature(derivations[2])) * .13
-				probWordGivenTag += -math.log(tagObjects[tagObjects.keys()[s]].probFeature(derivations[2])) * weightVector[3] #+ -math.log(tagObjects[tagObjects.keys()[s]].probFeature(derivations[1])) * .13 + -math.log(tagObjects[tagObjects.keys()[s]].probFeature(derivations[2])) * .13
-				#for derivation in derivations:
-					#tagObjects[tagObjects.keys()[s]].probFeature(derivation)
-
-					#if (derivation == "ase_GEN_" and tagObjects.keys()[s] == "B"):
-						#print "found it! " + observations[t] 
-						#probabilityTag = 0
-					#if -math.log(tagObjects[tagObjects.keys()[s]].probabilityWord(derivation)) < probWordGivenTag:
-					#	probWordGivenTag = -math.log(tagObjects[tagObjects.keys()[s]].probabilityWord(derivation))
-					#probWordGivenTag += -math.log(tagObjects[tagObjects.keys()[s]].probabilityWord(derivation))
-				#probWordGivenTag = probWordGivenTag / (len(derivations) + 1)
-				########3
-
-
-				# If we have a new max, update the viterbi value
-				if (prevVit + probTagGivenPrev + probWordGivenTag < minVal1):
-					minVal1 = prevVit + probTagGivenPrev + probWordGivenTag
-					viterbi[t][s] = minVal1
-					#backpointer[t][s] = tagObjects[tagObjects.keys()[x]].tag
-
-
-			#Backpointer Value Calcuation			
-			minVal2 = 99999999999999
-			backpointer[t][s] = "NULL"
-			# For each previous tag 
-			for x in range(0,N):
-				# Previous Viterbi Value
-				prevVit = viterbi[t-1][x]
-				# Probability of this state(tag) given the previous state(tag) 
-				probTagGivenPrev = -math.log(tagObjects[tagObjects.keys()[x]].probTagGivenThis(tagObjects[tagObjects.keys()[s]].tag))
-				
-				# If we have a new max, update the backpointer
-				if (prevVit + probTagGivenPrev < minVal2):
-					minVal2 = prevVit + probTagGivenPrev
-					backpointer[t][s] = tagObjects[tagObjects.keys()[x]].tag			
-
-	####################TERMINATION####################
-	# Determine the best score
-	bestScore = 0
+	tinyProb = math.exp(-100)
 	startOfBacktrace = 0
-	minVal = 99999999999999
-	# For each state(tag) 
-	for s in range(0,N):
-		# Grab the last viterbi val
-		viterbiVal = viterbi[T-1][s]
+	if len(tokenList) == 0:
+		return []
+	for (wordIdx, word) in enumerate(tokenList):
+		(isAllCapital, isFirstCapital, feature3,feature4,feaure5) = extractFeature(word)
+		for tagID in xrange(len(tagList)):
+			if wordIdx == 0:
+				# first word: just use the emission prob
+				#viterbiTable[wordIdx][tagID] = (tinyProb if firstTag_prob[tagID] == None else firstTag_prob[tagID]) * (tinyProb if word not in emission_prob[tagID] else emission_prob[tagID][word]
+
+				if firstTag_prob[tagID] == None:
+					viterbiTable[wordIdx][tagID] = tinyProb
+				else:
+					viterbiTable[wordIdx][tagID] = firstTag_prob[tagID]
+				if word not in emission_prob[tagID]:
+					viterbiTable[wordIdx][tagID] *= tinyProb
+				else:
+					viterbiTable[wordIdx][tagID] *= emission_prob[tagID][word]
+			else:
+				# following word: use both emission prob (mixture) and transition prob
+				maxProb = 0.0
+
+				# transition prob
+				for prevTagID in xrange(len(tagList)):
+					tProb = (tinyProb if transition_prob[prevTagID][tagID] == None else transition_prob[prevTagID][tagID]) * viterbiTable[wordIdx-1][prevTagID]
+					if tProb > maxProb:
+						maxProb = tProb 
+						backPointer[wordIdx][tagID] = prevTagID
+				# omission prob
+				tProb = weights[0] *  (tinyProb if word not in emission_prob[tagID] else emission_prob[tagID][word])
+				tProb += weights[1] * (tinyProb if emission_allCapital_prob[tagID][isAllCapital] == 0 else emission_allCapital_prob[tagID][isAllCapital])
+				tProb += weights[2] * (tinyProb if emission_firstCapital_prob[tagID][isFirstCapital] == 0 else emission_firstCapital_prob[tagID][isFirstCapital])
+				tProb += weights[3] * (tinyProb if emission_feature3_prob[tagID][feature3] == 0 else emission_feature3_prob[tagID][feature3])
+				tProb += weights[4] * (tinyProb if emission_feature4_prob[tagID][feature4] == 0 else emission_feature4_prob[tagID][feature4])
+				tProb += weights[5] * (tinyProb if emission_feature5_prob[tagID][feature5] == 0 else emission_feature5_prob[tagID][feature5])
+				# and calculate other feature
+				maxProb =  maxProb * tProb
+				viterbiTable[wordIdx][tagID] = maxProb
+				#print "Just updated table for word: " + tokenList[wordIdx] + " and tag: " + tagList[tagID] + " to be: " + str(maxProb)
+				#print str(emission_prob[1][1])
+	#Trace back to find out the best labeling path by using backPointer
+	# return the label for each token
+	labelSent = []
+
+	startOfBackTrace = 0
+	maxVal = 0
+	for tag in range(0,3):
+		#print " tag: " + tagList[tag] +" "+ str(viterbiTable[len(testSent)-1][tag])
+		#print "tag:" + str(tag)
+		viterbiVal = viterbiTable[len(tokenList)-1][tag]
 		# Check if this is the maximum final viterbi value, aka the start point for our backtrace. 
-		if (viterbiVal < minVal):
-			minVal = viterbiVal + probTagGivenPrev
-			bestScore = minVal
-			startOfBacktrace = tagObjects[tagObjects.keys()[s]].tag
+		if (viterbiVal > maxVal):
+			maxVal = viterbiVal
+			startOfBacktrace = tag
 
-	######################RETURN######################
-	# Instead of returning, this is where we update our array of predicated states 
-	# For each word(ignore the first "START")
-	for t in range (1,T):
-		minVal = 999999999999
-		bestTag = "NULL"
-		# For each tag, determine the best. 
-		for s in range (0,N):
-			# If we have a new max, grab the value and the backpointer value
-			if (viterbi[t][s] < minVal):
-				minVal = viterbi[t][s]
-				bestTag = backpointer[t][s]
-
-		# Append the tag we selected to our predictedStates array. 
-		predictedStates.append(str(bestTag))
-	return 
-
-
-
-# Takes a filename, word array, and tag array, and reads reads them all into array, also populates a worddict with counts of each #
-def readFileToSentences(fileName,sentences):
-	i = 0
-	file = open(fileName)
-	lines = file.readlines()
-	# Append a new blank array
-	sentences.append([])
-	# Append a start for the first sentence
-	sentences[0].append("START")
-	# For each line
-	for line in lines:
-		# If we hit a newline, skip it. 
-		if (line  != '\n'):
-			# Grab the first part
-			part1 = re.split('\s',line)
-			sentences[i].append(part1[0])
-			#print "adding: " + part1[0] + " to sentence: " + str(i)
-
-		#skip blank lines
-		else:
-			sentences[i].append("END")
-			i +=1
-			sentences.append([])
-			sentences[i].append("START")
-			
-	sentences[i].append("END") 
-
-	# We add one too many sentences, so pop the last one
-	#sentences.pop()
-
-
-
-
-
-#main function
-def main():
-
-	trainingDataFileName = sys.argv[1]
-	testingDataFileName = sys.argv[2]
-	outputDataFilename = sys.argv[3]
-	# Create empty array of words/tags for training data
-	words = []
-	tags = []
-	wordDict = collections.OrderedDict() 
-	tagDict = collections.OrderedDict()
-
-	# Read all the words from the training file into the arrays 
-	readFileToArrays(trainingDataFileName,words,tags,wordDict,tagDict)
+	#print str(startOfBacktrace)
+	#print "starting our backtrace at: " + tagList[startOfBacktrace]
 	
-	# Create all our tag objects
-	tagObjects = collections.OrderedDict()
-	for tag in tagDict:
-		tagObjects[tag] = TagObject(tag)
+	cur = startOfBacktrace
+	#print "cur: " + str(cur)
+	#print "appending: " + tagList[cur]
+	labelSent.insert(0,tagList[cur])
+	for (wordIdx, word) in enumerate(tokenList):
+		if len(tokenList)-1-wordIdx == 0:
+			break
+		else: 
+			cur = backPointer[len(tokenList)-1-wordIdx][cur]
+			#print "appending: " + tagList[cur]
+			labelSent.insert(0,tagList[cur])
 
-	# Populate word/tag counts for each bigram
-	createCounts(tagObjects,words,tags)
+	return labelSent
+		
+if __name__ == "__main__":
+	#Check the input parameter is correct
+	if len(sys.argv) != 4:
+		raise Exception("Please follow this input format: python pa3_tutorial.py TRAIN_FILE DEV_FILE LABEL_FILE")
+	trainFile = sys.argv[1]
+	devFile = sys.argv[2]
+	labelFile = sys.argv[3]
+	if os.path.exists(trainFile) != True:
+		raise Exception("Train file %s does not exist" % trainFile)
+	if os.path.exists(devFile) != True:
+		raise Exception("Dev file %s does not exist" % devFile)
 
-	for tag in tagDict:
-		tagObjects[tag].printFeatureInfo()
-	
-	#return
-	# Empty arrays for the sentences and sentence tags
-	sentences = []
-	sentenceTags = []	
-	# Populate the sentences array 
-	readFileToSentences(testingDataFileName,sentences)
+	# Read train file
+	with open(trainFile, "r") as fhd:
 
-	#Assigns weights to each of our different features. 
-	weightVector = [.999,.0003,.0003,.0003]
+		# Initialize prevTagID to be -1 to start. 
+		prevTagID = -1
 
-	print "done reading the file"
-	#print "Probability of in with tag B: " + str(tagObjects["B"].probFeature("Suffix_IN_Y"))
-	#return
-	# Open the output file 
-	f1=open(outputDataFilename,'w+')
-	count = 0
-	# For each sentence
-	for sentence in sentences:
+		# Counting
+		# Read each line. 
+		for line in fhd.xreadlines():
+			# Strip any newlines from the end
+			line = line.strip()
+			# If we have a blank line, reset the prevTag
+			if line == "":
+				prevTagID = -1
 
-		# Use viterbi to generate tags for the sentence
-		sentenceTags = []
-		viterbi(sentence,tagObjects,tags,sentenceTags,weightVector)
+			else:
+				# Grab the word/tag
+				(word, tag) = line.split("\t")
 
-		# For i sentences
-		for i in range(0,len(sentence)-1):
-			# Ignore the START
-			if (sentence[i] != "START"):
-				# Print the sentence with it's tag. 
-				f1.write(sentence[i] + "\t" + sentenceTags[i] + "\n")
-				#f1.write("\n") #temp
-		#f1.write("\n") #temp
-		#f1.write(".\t.")
-		count+=1
-		# Append new lines if this is not the last sentene. 
-		if (count != len(sentences)):
-			f1.write("\n")
+				# Extract all the possible features of the word. 
+				(isAllCapital, isFirstCapital,feature3,feature4,feature5) = extractFeature(word)
+				# Get the tag
+				tagID = tagType[tag]
 
-	# Close the file when we are done. 
-	f1.close()
+				tagTotalCounts[tagID] += 1
 
-main()
+				# If this is the start of the sentence
+				if prevTagID == -1:
+					# Add to the firstTag cnt for this tag. 
+					firstTag_cnt[tagID] += 1
+				else:
+					# Otherwise update our ransition count matrix 
+					transition_cnt[prevTagID][tagID] += 1
+				# Save this tag as the previous tag. 
+				prevTagID = tagID
 
+				# deal with the emission_cnt, emission_allCapital_cnt, emission_firstCapital_cnt, and other emission feature count by yourself
+				if word not in emission_cnt[tagID]:
+					emission_cnt[tagID][word] = 0
+
+				emission_cnt[tagID][word] += 1 
+				emission_allCapital_cnt[tagID][isAllCapital] += 1
+				emission_firstCapital_cnt[tagID][isFirstCapital] += 1
+				emission_feature3_cnt[tagID][feature3] += 1
+				emission_feature4_cnt[tagID][feature4] += 1
+				emission_feature5_cnt[tagID][feature5] += 1
+
+
+
+
+	# calculate the prob
+	total_firstTag = sum(firstTag_cnt)
+	# For each possible tag
+	for tagID in xrange(len(tagList)):
+
+		# Calculate all of our transition probabilities. 
+		total_prevTag = sum( [transition_cnt[tagID][currentTagID] for currentTagID in xrange(len(tagList))] )
+		transition_prob[tagID] = [ None if transition_cnt[tagID][currentTagID] == 0 else transition_cnt[tagID][currentTagID]/float(total_prevTag) for currentTagID in xrange(len(tagList)) ]
+		
+		# Calculate all of our emission probabilities. 
+		for word in emission_cnt[tagID]:
+			emission_prob[tagID][word] = emission_cnt[tagID][word]/float(tagTotalCounts[tagID])
+		#print tagTotalCounts[tagID]
+		#emission_prob[tagID] = [ None if emission_cnt[tagID][word] == 0 else emission_cnt[tagID][word]/float(tagTotalCounts[tagID]) for word in emission_cnt[tagID] ]
+
+		#print tagID
+		emission_allCapital_prob[tagID] = [ 0 if emission_allCapital_cnt[tagID][num] == 0 else emission_allCapital_cnt[tagID][num]/float(emission_allCapital_cnt[tagID][0] + emission_allCapital_cnt[tagID][1]) for num in range(2) ]
+		emission_firstCapital_prob[tagID] = [ 0 if emission_firstCapital_cnt[tagID][num] == 0 else emission_firstCapital_cnt[tagID][num]/float(emission_firstCapital_cnt[tagID][0] + emission_firstCapital_cnt[tagID][1]) for num in range(2) ]
+		emission_feature3_prob[tagID] = [ 0 if emission_feature3_cnt[tagID][num] == 0 else emission_feature3_cnt[tagID][num]/float(emission_feature3_cnt[tagID][0] + emission_feature3_cnt[tagID][1]) for num in range(2) ]
+		emission_feature4_prob[tagID] = [ 0 if emission_feature4_cnt[tagID][num] == 0 else emission_feature4_cnt[tagID][num]/float(emission_feature4_cnt[tagID][0] + emission_feature4_cnt[tagID][1]) for num in range(2) ]
+		emission_feature5_prob[tagID] = [ 0 if emission_feature5_cnt[tagID][num] == 0 else emission_feature5_cnt[tagID][num]/float(emission_feature5_cnt[tagID][0] + emission_feature5_cnt[tagID][1]) for num in range(2) ]
+
+	# Read Test, write the label to labelFile
+	testSent = []
+	with open(devFile, "r") as fhd, open(labelFile, "w") as fhd_write:
+		# For every line of the test file
+		for line in fhd.xreadlines():
+			# Read the line
+			line = line.strip()
+			# If it's a blank line
+			if line == "":
+				# Send the current sentence to the viterbi algorithm. 
+				labelSent = viterbiPath(testSent)
+
+				# write label file
+				for i in range(0,len(testSent)):
+					fhd_write.write(testSent[i] + "\t" + labelSent[i] + "\n")
+				fhd_write.write("\n")
+				# Empty the test set. 
+				testSent = []
+			# If it's not a blank line
+			else:
+				#print line
+				# Read each line
+				if "\t" in line:
+					(word, label) = line.split("\t")
+				else:
+					word = line
+				# Append the current word to the testSent
+				testSent.append(word)
+		#deal with the last sentence
+		labelSent = viterbiPath(testSent)
+		# write  label file
+		for i in range(0,len(testSent)):
+			fhd_write.write(testSent[i] + "\t" + labelSent[i] + "\n")
