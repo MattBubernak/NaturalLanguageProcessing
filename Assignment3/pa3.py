@@ -31,14 +31,17 @@ transition_prob = [None for _ in xrange(len(tagList))]
 firstTag_prob = [None for _ in xrange(len(tagList))]
 
 # weight for [emission_prob, emission_firstCaptial_prob, emission_allCapital_prob]
-weights = [0.9999995, 0.0000000005, 0.0000004700,0.000000028,0.00000000075 ,0.00000000075 ]
+weights = [0.9999995, 0.0000000005, 0.000000480,0.000000045,0.00000000075 ,0.0000000008 ]
 #weights = [0.9999995, 0.000000000, 0.00000000,0.000000000,0.00000005]
+
+#Below setup got: .485588
+#weights = [0.9999995, 0.0000000005, 0.0000004700,0.000000028,0.00000000075 ,0.00000000075 ]
 
 isAllCapitalRE = r"^[A-Z]+$"
 isFirstCapitalRE = r"[A-Z]+"
 isNumberAndCapRE = r"^(?=.*\d)(?=.*[A-Z])[A-Z\d]"
 isInSuffix = r"^.+in$"
-isAseSuffix = r"^.+ase$"
+isAseSuffix = r"^.+ase[s]*$"
 
 def extractFeature(word):
 
@@ -50,7 +53,7 @@ def extractFeature(word):
 	word = "bbA" -> return [0, 0]
 	"""
 
-	#if (re.match(isInSuffix,"meenin")):
+	#if (re.match(isAseSuffix,"meeninase")):
 	#	print "match"
 	#else:
 	#	print "not match"
