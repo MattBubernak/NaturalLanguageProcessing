@@ -18,6 +18,10 @@ emission_firstCapital_cnt = [[0,0] for _ in xrange(len(tagList))]
 emission_feature3_cnt = [[0,0] for _ in xrange(len(tagList))]
 emission_feature4_cnt = [[0,0] for _ in xrange(len(tagList))]
 emission_feature5_cnt = [[0,0] for _ in xrange(len(tagList))]
+emission_feature6_cnt = [[0,0] for _ in xrange(len(tagList))]
+emission_feature7_cnt = [[0,0] for _ in xrange(len(tagList))]
+emission_feature8_cnt = [[0,0] for _ in xrange(len(tagList))]
+emission_feature9_cnt = [[0,0] for _ in xrange(len(tagList))]
 firstTag_cnt = [0 for _ in xrange(len(tagList))]
 
 emission_prob = [{} for _ in xrange(len(tagList))]
@@ -26,23 +30,48 @@ emission_firstCapital_prob = [[0,0] for _ in xrange(len(tagList))]
 emission_feature3_prob = [[0,0] for _ in xrange(len(tagList))]
 emission_feature4_prob = [[0,0] for _ in xrange(len(tagList))]
 emission_feature5_prob = [[0,0] for _ in xrange(len(tagList))]
+emission_feature6_prob = [[0,0] for _ in xrange(len(tagList))]
+emission_feature7_prob = [[0,0] for _ in xrange(len(tagList))]
+emission_feature8_prob = [[0,0] for _ in xrange(len(tagList))]
+emission_feature9_prob = [[0,0] for _ in xrange(len(tagList))]
 
 transition_prob = [None for _ in xrange(len(tagList))]
 firstTag_prob = [None for _ in xrange(len(tagList))]
 
 # weight for [emission_prob, emission_firstCaptial_prob, emission_allCapital_prob]
-weights = [0.9999995, 0.0000000005, 0.000000480,0.000000045,0.00000000075 ,0.0000000008 ]
+weights = [0.9999995, 0.0000000005, 0.000000480,0.000000045,0.00000000075 ,0.00000000075,0.00000000075]
 #weights = [0.9999995, 0.000000000, 0.00000000,0.000000000,0.00000005]
 
 #Below setup got: .485588
 #weights = [0.9999995, 0.0000000005, 0.0000004700,0.000000028,0.00000000075 ,0.00000000075 ]
 
-isAllCapitalRE = r"^[A-Z]+$"
-isFirstCapitalRE = r"[A-Z]+"
-isNumberAndCapRE = r"^(?=.*\d)(?=.*[A-Z])[A-Z\d]"
-isInSuffix = r"^.+in$"
-isAseSuffix = r"^.+ase[s]*$"
+#Below got .49234
+#weights = [0.9999995, 0.0000000005, 0.000000480,0.000000045,0.00000000075 ,0.0000000008 ]
 
+#Below got .492409
+#weights = [0.9999995, 0.0000000005, 0.000000480,0.000000045,0.00000000075 ,0.00000000075,0.00000000075]
+
+
+# Feature 1
+isAllCapitalRE = r"^[A-Z]+$"
+# Feature 2
+isFirstCapitalRE = r"^[A-Z]"
+# Feature 3
+isNumberAndCapRE = r"^(?=.*\d)(?=.*[a-zA-Z])[A-Z\d]"
+# Feature 4
+isInSuffix = r"^.+in$"
+# Feature 5
+isAseSuffix = r"^.+ase[s]*$"
+# Feature 6
+AllLowerChars = r"^[a-z]+$" 
+
+
+
+
+#Not currently used
+between2and4chars = r"^.{2,4}$"
+ContainsMultCapitalRE = r".*[A-Z]+.*[A-Z]+.*"
+ContainsCapIwithlowercasebefore = r".*[a-z]+.*I+.*"
 def extractFeature(word):
 
 	"""
@@ -53,12 +82,12 @@ def extractFeature(word):
 	word = "bbA" -> return [0, 0]
 	"""
 
-	#if (re.match(isAseSuffix,"meeninase")):
+	#if (re.match(ContainsCapitalRE,"aaaAsaa")):
 	#	print "match"
 	#else:
 	#	print "not match"
 
-	return [1 if (t != None) else 0 for t in [re.match(isAllCapitalRE, word), re.match(isFirstCapitalRE, word), re.match(isNumberAndCapRE, word),re.match(isInSuffix, word),re.match(isAseSuffix, word)]]
+	return [1 if (t != None) else 0 for t in [re.match(isAllCapitalRE, word), re.match(isFirstCapitalRE, word), re.match(isNumberAndCapRE, word),re.match(isInSuffix, word),re.match(isAseSuffix, word),re.match(AllLowerChars, word)]]
 
 def viterbiPath(tokenList):
 	"""
@@ -72,7 +101,7 @@ def viterbiPath(tokenList):
 	if len(tokenList) == 0:
 		return []
 	for (wordIdx, word) in enumerate(tokenList):
-		(isAllCapital, isFirstCapital, feature3,feature4,feaure5) = extractFeature(word)
+		(isAllCapital, isFirstCapital, feature3,feature4,feaure5,feature6) = extractFeature(word)
 		for tagID in xrange(len(tagList)):
 			if wordIdx == 0:
 				# first word: just use the emission prob
@@ -103,6 +132,7 @@ def viterbiPath(tokenList):
 				tProb += weights[3] * (tinyProb if emission_feature3_prob[tagID][feature3] == 0 else emission_feature3_prob[tagID][feature3])
 				tProb += weights[4] * (tinyProb if emission_feature4_prob[tagID][feature4] == 0 else emission_feature4_prob[tagID][feature4])
 				tProb += weights[5] * (tinyProb if emission_feature5_prob[tagID][feature5] == 0 else emission_feature5_prob[tagID][feature5])
+				tProb += weights[6] * (tinyProb if emission_feature6_prob[tagID][feature6] == 0 else emission_feature6_prob[tagID][feature6])
 				# and calculate other feature
 				maxProb =  maxProb * tProb
 				viterbiTable[wordIdx][tagID] = maxProb
@@ -172,7 +202,7 @@ if __name__ == "__main__":
 				(word, tag) = line.split("\t")
 
 				# Extract all the possible features of the word. 
-				(isAllCapital, isFirstCapital,feature3,feature4,feature5) = extractFeature(word)
+				(isAllCapital, isFirstCapital,feature3,feature4,feature5,feature6) = extractFeature(word)
 				# Get the tag
 				tagID = tagType[tag]
 
@@ -198,6 +228,7 @@ if __name__ == "__main__":
 				emission_feature3_cnt[tagID][feature3] += 1
 				emission_feature4_cnt[tagID][feature4] += 1
 				emission_feature5_cnt[tagID][feature5] += 1
+				emission_feature6_cnt[tagID][feature6] += 1
 
 
 
@@ -223,6 +254,7 @@ if __name__ == "__main__":
 		emission_feature3_prob[tagID] = [ 0 if emission_feature3_cnt[tagID][num] == 0 else emission_feature3_cnt[tagID][num]/float(emission_feature3_cnt[tagID][0] + emission_feature3_cnt[tagID][1]) for num in range(2) ]
 		emission_feature4_prob[tagID] = [ 0 if emission_feature4_cnt[tagID][num] == 0 else emission_feature4_cnt[tagID][num]/float(emission_feature4_cnt[tagID][0] + emission_feature4_cnt[tagID][1]) for num in range(2) ]
 		emission_feature5_prob[tagID] = [ 0 if emission_feature5_cnt[tagID][num] == 0 else emission_feature5_cnt[tagID][num]/float(emission_feature5_cnt[tagID][0] + emission_feature5_cnt[tagID][1]) for num in range(2) ]
+		emission_feature6_prob[tagID] = [ 0 if emission_feature6_cnt[tagID][num] == 0 else emission_feature6_cnt[tagID][num]/float(emission_feature6_cnt[tagID][0] + emission_feature6_cnt[tagID][1]) for num in range(2) ]
 
 	# Read Test, write the label to labelFile
 	testSent = []
