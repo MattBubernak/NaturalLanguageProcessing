@@ -3,7 +3,7 @@
 import os, sys
 import re
 
-regex  = r"^.{2,5}$"
+regex  = r"^[a-z]+$"
 
 
 

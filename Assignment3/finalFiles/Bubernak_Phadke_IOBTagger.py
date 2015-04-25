@@ -127,12 +127,12 @@ def viterbiPath(tokenList):
 						backPointer[wordIdx][tagID] = prevTagID
 				# omission prob
 				tProb = weights[0] *  (tinyProb if word not in emission_prob[tagID] else emission_prob[tagID][word])
-				#tProb += weights[1] * (tinyProb if emission_allCapital_prob[tagID][isAllCapital] == 0 else emission_allCapital_prob[tagID][isAllCapital])
-				#tProb += weights[2] * (tinyProb if emission_firstCapital_prob[tagID][isFirstCapital] == 0 else emission_firstCapital_prob[tagID][isFirstCapital])
-				##tProb += weights[3] * (tinyProb if emission_feature3_prob[tagID][feature3] == 0 else emission_feature3_prob[tagID][feature3])
-				#tProb += weights[4] * (tinyProb if emission_feature4_prob[tagID][feature4] == 0 else emission_feature4_prob[tagID][feature4])
-				#tProb += weights[5] * (tinyProb if emission_feature5_prob[tagID][feature5] == 0 else emission_feature5_prob[tagID][feature5])
-				#tProb += weights[6] * (tinyProb if emission_feature6_prob[tagID][feature6] == 0 else emission_feature6_prob[tagID][feature6])
+				tProb += weights[1] * (tinyProb if emission_allCapital_prob[tagID][isAllCapital] == 0 else emission_allCapital_prob[tagID][isAllCapital])
+				tProb += weights[2] * (tinyProb if emission_firstCapital_prob[tagID][isFirstCapital] == 0 else emission_firstCapital_prob[tagID][isFirstCapital])
+				tProb += weights[3] * (tinyProb if emission_feature3_prob[tagID][feature3] == 0 else emission_feature3_prob[tagID][feature3])
+				tProb += weights[4] * (tinyProb if emission_feature4_prob[tagID][feature4] == 0 else emission_feature4_prob[tagID][feature4])
+				tProb += weights[5] * (tinyProb if emission_feature5_prob[tagID][feature5] == 0 else emission_feature5_prob[tagID][feature5])
+				tProb += weights[6] * (tinyProb if emission_feature6_prob[tagID][feature6] == 0 else emission_feature6_prob[tagID][feature6])
 				# and calculate other feature
 				maxProb =  maxProb * tProb
 				viterbiTable[wordIdx][tagID] = maxProb
