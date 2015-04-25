@@ -9,7 +9,7 @@ import random
 # expects number of folds and the training file as the 2 inputs
 # also expects eval.py to be in the same directory
 #
-# divides the data into training, testing for each fold and invokes pa3.py to run it
+# divides the data into training, testing for each fold and invokes Bubernak_Phadke_IOBTagger.py to run it
 
 folds = int(sys.argv[1])
 
@@ -62,7 +62,7 @@ with open('cv-key.txt', 'w') as fd_gold:
 		fd_test.close()
 
 		# make sure to change thus to the way you invoke your code
-		os.system('python ./pa3.py _train.txt _test.txt _out-part.txt')
+		os.system('python ./Bubernak_Phadke_IOBTagger.py _train.txt _test.txt _out-part.txt')
 		
 		os.system('cat _out-part.txt >> cv-sys-out.txt')
 

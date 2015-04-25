@@ -8,7 +8,8 @@ Files Included:
 * regexChecker.py (Used for testing regexes)
 * grabLinesWithLetter.py (Used for extracting word-tag groups)
 
-Usage Instruction(ubernak_Phadke_IOBTagger.py): 
+
+Usage Instruction(Bubernak_Phadke_IOBTagger.py): 
 ==================
 The following line of code will generate a test output based on a set of training data, and test data, that includes a copy of the test data labeled with IOB tags generated based on trainig from the training data file.
 "python Bubernak_Phadke_IOBTagger.py [PathToInputTrainingData.txt] [PathToInputTestData.txt] [PathToOutputFile.txt]"
